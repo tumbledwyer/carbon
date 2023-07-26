@@ -13,9 +13,17 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: "Automated Pull Request from develop to staging"
           title: "Automated Pull Request from develop to staging"
           body: "This is an automated pull request from the develop branch to the staging branch."
           branch: staging
+
+      - name: Wait for Approval
+        if: steps.cpr.outputs.pull-request-created == 'true'
+        uses: azure/wait-for@v1
+        with:
+          method: 'pull-request'
+          pull-request: ${{ steps.cpr.outputs.pull-request-number }}
