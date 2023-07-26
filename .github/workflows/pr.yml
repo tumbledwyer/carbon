@@ -18,5 +18,4 @@ jobs:
           commit-message: "Automated Pull Request from develop to staging"
           title: "Automated Pull Request from develop to staging"
           body: "This is an automated pull request from the develop branch to the staging branch."
-          branch: master
-          base: staging
+          branch: staging
