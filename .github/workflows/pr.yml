@@ -11,19 +11,17 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+        with:
+          ref: staging
+      - name: Reset promotion branch
+        run: |
+          git fetch origin develop:develop
+          git reset --hard develop
 
-      - name: Create Pull Request
-        id: cpr
+      - name: Create Pull Request        
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: "Automated Pull Request from develop to staging"
-          title: "Automated Pull Request from develop to staging"
-          body: "This is an automated pull request from the develop branch to the staging branch."
-          branch: staging
-
-      - name: Wait for Approval
-        if: steps.cpr.outputs.pull-request-created == 'true'
-        uses: azure/wait-for@v1
-        with:
-          method: 'pull-request'
-          pull-request: ${{ steps.cpr.outputs.pull-request-number }}
+          # commit-message: "Automated Pull Request from develop to staging"
+          # title: "Automated Pull Request from develop to staging"
+          # body: "This is an automated pull request from the develop branch to the staging branch."
+          branch: update-staging
