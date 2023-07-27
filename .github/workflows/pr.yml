@@ -12,7 +12,11 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          ref: staging   
+          ref: staging
+      # - name: Reset promotion branch
+      #   run: |
+      #     git fetch origin master:master
+      #     git reset --hard master
 
       - name: Create Pull Request        
         uses: peter-evans/create-pull-request@v5
